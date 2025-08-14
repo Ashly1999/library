@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Users List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <td><a href="{{route('catcreate')}}" style="background-color: #00ff4cff; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
+                New
+            </a>
+        </td>
+        <h2>Category Details</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($cat as $cats)
+                <tr>
+                    <td>{{$cats->name }}</td>
+                    <td>{{$cats->description }}</td>
+                    <td>{{$cats->status ? 'Active' : 'Inactive' }}</td>
+                    <td><a href="{{route('catedit',$cats->category_id)}}" style="background-color: #007bff; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
+                            Edit
+                        </a>
+
+                        <a href="{{route('catdelete',$cats->category_id)}}" style="background-color: #97102bff; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Delete</a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="3" class="text-center">No users found</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

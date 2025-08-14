@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,7 +61,7 @@ class RegisterController extends Controller
             'email' => 'Invalid email or password.',
         ])->onlyInput('email');
     }
-    
+
     public function view()
     {
         if (Auth::check() && Auth::user()->role == 1) {
@@ -73,5 +74,57 @@ class RegisterController extends Controller
 
         return view('details', compact('user'));
     }
+
+
+    public function catcreate()
+
+    {
+        return view('category.create');
+    }
+
+
+    public function catstore()
+    {
+         $category=Category::create([
+
+            'name'=>request('cname'),
+            'description' => request('des'),
+            'status' => request('status'),
+         ]);
+
+        return redirect()->route('catview');
+    }
+
+    public function catview()
+    {
+        $cat=Category::all();
+        return view('category.view',compact('cat'));
+    }
+
+    public function catedit($id)
+    {
+        $cat = Category::find($id); // pass the actual ID
+         return view('category.edit',compact('cat'));
+        
+    }
+
+    public function catupdate(Request $request,$id)
+    {
+        $cat=Category::find($id);
+        $cat->update([
+            'name' => $request->cname,
+            'description' => $request->des,
+            'status' => $request->status,
+        ]);
+        return redirect()->route('catview');
+    }
+
+    public function catdelete($id)
+    {
+      $cat=Category::find($id);
+        $cat->delete();
+        return redirect()->route('catview');
+    }
 }
+
  

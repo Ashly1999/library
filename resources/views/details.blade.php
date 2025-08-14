@@ -53,7 +53,8 @@
 
 <body>
 
-    <a href="" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a>
+    <a href="" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br>
+    <a href="" style="text-align:right;margin-left: 210px;text-decoration: none;">category Details</a>
     <h2>User Details</h2>
 
     <table>
