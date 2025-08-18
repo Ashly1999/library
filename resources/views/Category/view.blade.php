@@ -8,8 +8,24 @@
 
 <body>
     <div class="container mt-5">
-        <td><a href="{{route('catcreate')}}" style="background-color: #00ff4cff; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
+       
+        <td>
+            @if(Auth::user()->role == 1)
+            <a href="{{ route('catcreate')}}"
+                style="background-color: rgba(255, 0, 221, 1); 
+                   color: white; 
+                   padding: 10px 20px; 
+                   border-radius: 5px; 
+                   text-decoration: none;">
                 New
+            </a>
+            @endif
+        </td>
+
+
+    
+        <td><a href="{{route('details')}}" style="background-color: rgba(109, 58, 186, 1); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+                Back
             </a>
         </td>
         <h2>Category Details</h2>
@@ -34,7 +50,7 @@
                             Edit
                         </a>
 
-                        <a href="{{route('catdelete',$cats->category_id)}}" style="background-color: #97102bff; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Delete</a>
+                        <a href="{{route('catdelete',$cats->category_id)}}" style="background-color: #620404ff; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">Delete</a>
                     </td>
                 </tr>
                 @empty

@@ -53,22 +53,22 @@
 
 <body>
 
-    <a href="{{route('bookcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br>
-    <a href="{{route('catcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">category Details</a>
-    <h2>User Details</h2>
+    <a href="" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br>
+    <a href="" style="text-align:right;margin-left: 210px;text-decoration: none;">category Details</a>
+    <h2>Book Details</h2>
 
     <table>
 
         <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>membership_no</th>
-            <th>Address</th>
-            <th>Profile</th>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Category</th>
+            <th>Publisher</th>
+            <th>Year Published</th>
+            <th>Edition</th>
+            <th>Language</th>
+            <th>Available Copies</th>
             <th>Status</th>
-            <th>Join Date</th>
-            <th>Issue Date</th>
-            <th>Due Date</th>
             <th>Edit</th>
             <th>Delete</th>
 

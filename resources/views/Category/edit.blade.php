@@ -40,18 +40,20 @@
             </div>
             <div class="mb-3">
                 <label for="des" class="form-label">Description</label>
-                <textarea class="form-control" id="des" name="des" rows="4" placeholder="Enter description">{{ $cat->description }}</textarea>
+                <textarea class="form-control" id="des" name="des" rows="4" placeholder="Enter description">{{$cat->description}}</textarea>
             </div>
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select id="status" name="status" class="form-select">
-                    <option value="1" {{ $cat->status == 1 ? 'selected' : '' }}>Active</option>
-                    <option value="0" {{ $cat->status == 0 ? 'selected' : '' }}>Inactive</option>
+                    <option value="1" {{$cat->status == 1 ? 'selected' : ''}}>Active</option>
+                    <option value="0" {{$cat->status == 0 ? 'selected' : ''}}>Inactive</option>
                 </select>
             </div>
+
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary btn-lg">Save</button>
             </div>
+               
         </form>
     </div>
 

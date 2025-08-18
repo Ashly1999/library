@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Ramsey\Uuid\v1;
+
 class RegisterController extends Controller
 {
     //
@@ -75,12 +77,48 @@ class RegisterController extends Controller
         return view('details', compact('user'));
     }
 
+    public function edit($userid)
+    {
+          $user=User::find($userid);
+          return view('edit',compact('user'));
+    }
+
+    public function update($userid)
+    {
+        $user=User::find($userid);
+        $user->update([
+            'name'          => request('name'),
+            'email'         => request('email'),
+            'password' => bcrypt(request('password')),
+            'role'          => request('role'),
+            'membership_no' => request('membership_no'),
+            'address'       => request('address'),
+            'status'        => request('status'),
+            'join_date'     => request('jdate'),
+            'issue_date'    => request('idate'),
+            'due_date'      => request('ddate'),
+        ]);
+
+        return redirect()->route('details');
+    }
+
+    // public function drop($userid)
+    // {
+    //    $user=User::find($userid);
+    //    $user->delete();
+    //    return redirect()->route('details');
+    // }
 
     public function catcreate()
-
     {
-        return view('category.create');
+        if (Auth::user()->role == 1) {
+            return view('category.create');
+        } else {
+            $cat = Category::all();
+            return view('category.view', compact('cat'));
+        }
     }
+
 
 
     public function catstore()
@@ -103,7 +141,7 @@ class RegisterController extends Controller
 
     public function catedit($id)
     {
-        $cat = Category::find($id); // pass the actual ID
+        $cat = Category::find($id); 
          return view('category.edit',compact('cat'));
         
     }
