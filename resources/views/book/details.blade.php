@@ -73,26 +73,22 @@
             <th>Delete</th>
 
         </tr>
-
-        @foreach($user as $use)
+        @foreach($books as $book)
         <tr>
-            <td>{{$use->name}}</td>
-            <td>{{$use->email }}</td>
-            <td>{{$use->membership_no }}</td>
-            <td>{{$use->address}}</td>
-            <td>
-                <img src="{{ asset($use->image) }}" alt="User Image" width="100">
-            </td>
-
-            <td>{{$use->status? 'Assigned' : 'Not Assigned'}}</td>
-            <td>{{$use->join_date}}</td>
-            <td>{{$use->idate}}</td>
-            <td>{{$use->ddate}}</td>
-            <td><a href="{{route('edit',$use->user_id)}}">Edit</a></td>
-            <td><a href="{{route('delete',$use->user_id)}}">Delete</a></td>
-
+            <td>{{ $book->title }}</td>
+            <td>{{ $book->author }}</td>
+            <td>{{ $book->category ? $book->category->name  }}</td>
+            <td>{{ $book->publisher }}</td>
+            <td>{{ $book->year_publisher }}</td>
+            <td>{{ $book->edition }}</td>
+            <td>{{ $book->langauge }}</td>
+            <td>{{ $book->available_copies }}</td>
+            <td>{{ $book->status == 1 ? 'Available' : 'Non Available' }}</td>
+            <td><a href="">Edit</a></td>
+            <td><a href="">Delete</a></td>
         </tr>
         @endforeach
+
     </table>
 
 </body>

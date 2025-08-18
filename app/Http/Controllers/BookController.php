@@ -15,17 +15,28 @@ class BookController extends Controller
 
     public function bookstore()
     {
-        $book=Book::create([
+       
+       Book::create([
             'title'=>request('bname'),
             'author' => request('author'),
             'category_id' => request('category_id'),
-            'title' => request('bname'),
-            'title' => request('bname'),
-            'title' => request('bname'),
-            'title' => request('bname'),
-            'title' => request('bname'),
-            'title' => request('bname'),
-            'title' => request('bname'),
+            'publisher' => request('bname'),
+            'year_publisher' => request('year'),
+            'edition' => request('edition'),
+            'langauge' => request('lan'),
+            'available_copies' => request('copy'),
+            'price' => request('price'),
+            'status' => request('status'),
         ]);
+
+        $books = Book::with('category')->get();
+
+        return view('book.details', compact('books'));
+    }
+
+    public function view()
+    {
+        $books = Book::with('category')->get();
+        return view('book.details', compact('books'));
     }
 }

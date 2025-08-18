@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('author');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('category_id')->on('categorys');
-            $table->string('langauge');
             $table->string('publisher');
-            $table->string('no_of_pages');
+            $table->string('year_published');
+            $table->string('edition');
+            $table->string('langauge');
+            $table->string('available_copies');
+            $table->string('price');
             $table->string('status')->default(1)->comment('1:Available,0:Non_avaialable');
             $table->timestamps();
         });

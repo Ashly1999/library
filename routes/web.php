@@ -26,5 +26,5 @@ Route::get('/category.delete/{id}', [RegisterController::class, 'catdelete'])->n
 //book
 
 Route::get('/book', [BookController::class, 'create'])->name('bookcreate');
-Route::post('/book.store', [RegisterController::class,'bookstore'])->name('bookstore');
-Route::get('/book.view', [RegisterController::class, 'view'])->name('view');
+Route::post('/book.store', [BookController::class,'bookstore'])->name('bookstore');
+Route::get('/book.view', [BookController::class, 'view'])->name('view');

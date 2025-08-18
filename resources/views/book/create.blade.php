@@ -91,7 +91,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="publisher" class="form-label">Category</label>
+                <label for="publisher" class="form-label">Publisher</label>
                 <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Enter publisher">
             </div>
 
@@ -116,10 +116,15 @@
             </div>
 
             <div class="mb-3">
+                <label for="copy" class="form-label">Price</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
+            </div>
+
+            <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select name="status" id="status" class="form-select">
                     <option value="1">Available</option>
-                    <option value="0">Not Available</option>
+                    <option value="0">Non Available</option>
                 </select>
             </div>
 
