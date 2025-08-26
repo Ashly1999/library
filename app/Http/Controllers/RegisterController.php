@@ -112,7 +112,7 @@ class RegisterController extends Controller
     public function catcreate()
     {
         if (Auth::user()->role == 1) {
-            return view('category.create');
+            // return view('category.create');
         } else {
             $cat = Category::all();
             return view('category.view', compact('cat'));

@@ -86,8 +86,8 @@
 
             <td>{{$use->status? 'Assigned' : 'Not Assigned'}}</td>
             <td>{{$use->join_date}}</td>
-            <td>{{$use->idate}}</td>
-            <td>{{$use->ddate}}</td>
+            <td>{{$use->issue_date}}</td>
+            <td>{{$use->due_date}}</td>
             <td><a href="{{route('edit',$use->user_id)}}">Edit</a></td>
             <td><a href="{{route('delete',$use->user_id)}}">Delete</a></td>
 

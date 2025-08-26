@@ -11,10 +11,8 @@ Route::get('/login', [RegisterController::class, 'create'])->name('login');
 Route::post('/login.store', [RegisterController::class, 'loginstore'])->name('login.store');
 Route::get('/userdetails', [RegisterController::class, 'view'])->name('details');
 Route::get('/useredit/{id}', [RegisterController::class, 'edit'])->name('edit');
-Route::post('/userupdate/{id}', [RegisterController::class, 'update'])->name('update');
+Route::post('/userupdate/{id}', [RegisterController::class, 'update'])->name('updatestore');
 Route::get('/userdelete/{id}', [RegisterController::class, 'drop'])->name('delete');
-
-
 
 Route::get('/category', [RegisterController::class, 'catcreate'])->name('catcreate');
 Route::post('/category.store', [RegisterController::class, 'catstore'])->name('catstore');
@@ -24,7 +22,10 @@ Route::post('/category.update/{id}', [RegisterController::class, 'catupdate'])->
 Route::get('/category.delete/{id}', [RegisterController::class, 'catdelete'])->name('catdelete');
 
 //book
-
 Route::get('/book', [BookController::class, 'create'])->name('bookcreate');
-Route::post('/book.store', [BookController::class,'bookstore'])->name('bookstore');
+Route::post('/bookstore', [BookController::class,'bookstore'])->name('bookstore');
 Route::get('/book.view', [BookController::class, 'view'])->name('view');
+Route::get('/bookedit/{id}',[BookController::class, 'edit'])->name('bookedit');
+Route::post('/updatestore/{id}', [BookController::class, 'update'])->name('update');
+Route::get('/delete/{id}', [BookController::class, 'delete'])->name('delete');
+

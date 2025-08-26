@@ -71,21 +71,21 @@
             <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>
-
         </tr>
+
         @foreach($books as $book)
         <tr>
             <td>{{ $book->title }}</td>
             <td>{{ $book->author }}</td>
-            <td>{{ $book->category ? $book->category->name  }}</td>
+            <td>{{ $book->category->name }}</td>
             <td>{{ $book->publisher }}</td>
-            <td>{{ $book->year_publisher }}</td>
+            <td>{{ $book->year_publisher}}</td>
             <td>{{ $book->edition }}</td>
             <td>{{ $book->langauge }}</td>
             <td>{{ $book->available_copies }}</td>
-            <td>{{ $book->status == 1 ? 'Available' : 'Non Available' }}</td>
+            <td>{{ $book->status == 1 ? 'Available':'Non Available'}}</td>
             <td><a href="">Edit</a></td>
-            <td><a href="">Delete</a></td>
+            <td><a href="{{route('delete', $book->book_id)}}">Delete</a></td>
         </tr>
         @endforeach
 

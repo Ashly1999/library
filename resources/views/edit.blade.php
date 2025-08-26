@@ -16,8 +16,8 @@
                         <h4>Create an Account</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('update',$user->user_id)}}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                        <form action="{{ route('updatestore', $user->user_id) }}" method="POST">
+                             @csrf
 
                             <!-- Name -->
                             <div class="mb-3">
