@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Book;
+use App\Mail\IssueMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 use function Ramsey\Uuid\v1;
 
@@ -13,7 +16,8 @@ class RegisterController extends Controller
     //
     public function index()
     {
-        return view('register');
+        $books = Book::all();
+        return view('register',compact('books'));
     }
 
     public function store()
@@ -25,6 +29,7 @@ class RegisterController extends Controller
             'role'          => request('role'),
             'membership_no' => request('membership_no'),
             'address'       => request('address'),
+            'book_id'       => request('book_id'),
             'status'        => request('status'),
             'join_date'     => request('jdate'),
             'issue_date'    => request('idate'),
@@ -34,9 +39,10 @@ class RegisterController extends Controller
         if (request()->hasFile('image')) {
             $data['image'] = request()->file('image')->store('uploads', 'public');
         }
-
+        $users = User::with('book')->get();
         $user = User::create($data);
 
+       
         return redirect()->route('login');
     }
 
@@ -63,24 +69,27 @@ class RegisterController extends Controller
             'email' => 'Invalid email or password.',
         ])->onlyInput('email');
     }
-
     public function view()
     {
         if (Auth::check() && Auth::user()->role == 1) {
-          
-            $user = User::all();
+            $user = User::with('book')->get();
         } else {
-            
-            $user = collect([Auth::user()]); 
+            $user = User::with('book')->where('user_id', Auth::id())->get();
         }
 
-        return view('details', compact('user'));
+        $books = Book::all();
+
+        return view('details', compact('user', 'books'));
     }
+
+
 
     public function edit($userid)
     {
-          $user=User::find($userid);
-          return view('edit',compact('user'));
+        $user = User::with('book')->findOrFail($id);
+        $books = Book::all();
+        //   $user=User::find($userid);
+          return view('edit',compact('user','books'));
     }
 
     public function update($userid)
@@ -93,12 +102,12 @@ class RegisterController extends Controller
             'role'          => request('role'),
             'membership_no' => request('membership_no'),
             'address'       => request('address'),
+            'book_id'       => request('book_id'),
             'status'        => request('status'),
             'join_date'     => request('jdate'),
             'issue_date'    => request('idate'),
             'due_date'      => request('ddate'),
         ]);
-
         return redirect()->route('details');
     }
 
@@ -111,14 +120,15 @@ class RegisterController extends Controller
 
     public function catcreate()
     {
-        if (Auth::user()->role == 1) {
-            // return view('category.create');
+        if (Auth::user()->role == 1) 
+        {
+             return view('category.create');
         } else {
             $cat = Category::all();
             return view('category.view', compact('cat'));
         }
     }
-
+    
 
 
     public function catstore()

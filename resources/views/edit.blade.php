@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('updatestore', $user->user_id) }}" method="POST">
-                             @csrf
+                            @csrf
 
                             <!-- Name -->
                             <div class="mb-3">
@@ -60,7 +60,18 @@
                                 <label for="password" class="form-label">Profile:</label>
                                 <input type="file" class="form-control" id="image" name="image">
                             </div>
-
+                            <div class="mb-3">
+                                <label for="book_id" class="form-label fw-semibold">Book Name</label>
+                                <select id="book_id" name="book_id" class="form-select">
+                                    <option value="">-- Select Book --</option>
+                                    @foreach($books as $book)
+                                    <option value="{{ $book->book_id }}"
+                                        {{ $user->book?->book_id == $book->book_id ? 'selected' : '' }}>
+                                        {{ $book->title }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Status</label>
                                 <select class="form-select" id="status" name="status" value="{{$user->status}}">

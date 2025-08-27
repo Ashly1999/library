@@ -33,6 +33,11 @@ class User extends Authenticatable
         'due_date',
     ];
     protected $guarded = [];
+    // Each user belongs to a book (optional)
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id', 'book_id'); // user.book_id → book.book_id
+    }
 
 
     /**

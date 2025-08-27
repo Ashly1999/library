@@ -56,24 +56,21 @@
     <a href="{{route('bookcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br>
     <a href="{{route('catcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">category Details</a>
     <h2>User Details</h2>
-
     <table>
-
         <tr>
             <th>Full Name</th>
             <th>Email</th>
             <th>membership_no</th>
             <th>Address</th>
             <th>Profile</th>
+            <th>Book</th>
             <th>Status</th>
             <th>Join Date</th>
             <th>Issue Date</th>
             <th>Due Date</th>
             <th>Edit</th>
             <th>Delete</th>
-
         </tr>
-
         @foreach($user as $use)
         <tr>
             <td>{{$use->name}}</td>
@@ -81,16 +78,15 @@
             <td>{{$use->membership_no }}</td>
             <td>{{$use->address}}</td>
             <td>
-                <img src="{{ asset($use->image) }}" alt="User Image" width="100">
+                <img src="{{asset($use->image)}}" alt="User Image" width="100">
             </td>
-
+            <td>{{$use->book ? $use->book->title : 'No book' }}</td>
             <td>{{$use->status? 'Assigned' : 'Not Assigned'}}</td>
             <td>{{$use->join_date}}</td>
             <td>{{$use->issue_date}}</td>
             <td>{{$use->due_date}}</td>
             <td><a href="{{route('edit',$use->user_id)}}">Edit</a></td>
             <td><a href="{{route('delete',$use->user_id)}}">Delete</a></td>
-
         </tr>
         @endforeach
     </table>

@@ -77,14 +77,13 @@
         <tr>
             <td>{{ $book->title }}</td>
             <td>{{ $book->author }}</td>
-            <td>{{ $book->category->name }}</td>
+            <td>{{ $book->category->name ?? 'No Category' }}</td> {{-- Safe navigation --}}
             <td>{{ $book->publisher }}</td>
-            <td>{{ $book->year_publisher}}</td>
+            <td>{{ $book->year_publisher }}</td>
             <td>{{ $book->edition }}</td>
             <td>{{ $book->langauge }}</td>
             <td>{{ $book->available_copies }}</td>
-            <td>{{ $book->status == 1 ? 'Available':'Non Available'}}</td>
-            <td><a href="">Edit</a></td>
+            <td><a href="{{route('bookedit', $book->book_id)}}">Edit</a></td>
             <td><a href="{{route('delete', $book->book_id)}}">Delete</a></td>
         </tr>
         @endforeach

@@ -62,6 +62,16 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="book_id" class="form-label">Book</label>
+                                <select id="book_id" name="book_id" class="form-select">
+                                    <option value="">-- Select Book --</option>
+                                    @foreach($books as $book)
+                                    <option value="{{ $book->book_id }}">{{ $book->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="role" class="form-label">Status</label>
                                 <select class="form-select" id="status" name="status">
                                     <option value="1">Assigned</option>
