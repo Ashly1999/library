@@ -125,7 +125,7 @@ class RegisterController extends Controller
         return redirect()->route('details')
             ->with('success', 'Status updated & email sent!');
     }
-
+    
     // public function drop($userid)
     // {
     //    $user=User::find($userid);
