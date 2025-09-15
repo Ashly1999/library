@@ -66,7 +66,7 @@
                                 <select id="book_id" name="book_id" class="form-select">
                                     <option value="">-- Select Book --</option>
                                     @foreach($books as $book)
-                                    <option value="{{ $book->book_id }}">{{ $book->title}}</option>
+                                    <option value="{{ $book->book_id }}">{{$book->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -83,14 +83,17 @@
                                 <label for="password" class="form-label">Join Date:</label>
                                 <input type="date" class="form-control" id="jdate" name="jdate">
                             </div>
+
                             <div class="mb-3">
                                 <label for="password" class="form-label">Issue Date:</label>
                                 <input type="date" class="form-control" id="idate" name="idate">
                             </div>
+
                             <div class="mb-3">
                                 <label for="password" class="form-label">Due Date:</label>
                                 <input type="date" class="form-control" id="ddate" name="ddate">
                             </div>
+                            
                             <!-- Register Button -->
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">Register</button>

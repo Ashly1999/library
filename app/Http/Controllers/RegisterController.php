@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Book;
-use App\Mail\IssueMail;
+use App\Mail\StatusMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -20,8 +20,9 @@ class RegisterController extends Controller
         return view('register',compact('books'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
+       
         $data = [
             'name'          => request('name'),
             'email'         => request('email'),
@@ -35,10 +36,15 @@ class RegisterController extends Controller
             'issue_date'    => request('idate'),
             'due_date'      => request('ddate'),
         ];
-
-        if (request()->hasFile('image')) {
-            $data['image'] = request()->file('image')->store('uploads', 'public');
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('asset/uploads'), $filename);
+            $data['image'] = $filename; // corrected
         }
+
+      
         $users = User::with('book')->get();
         $user = User::create($data);
 
@@ -76,7 +82,6 @@ class RegisterController extends Controller
         } else {
             $user = User::with('book')->where('user_id', Auth::id())->get();
         }
-
         $books = Book::all();
 
         return view('details', compact('user', 'books'));
@@ -86,7 +91,7 @@ class RegisterController extends Controller
 
     public function edit($userid)
     {
-        $user = User::with('book')->findOrFail($id);
+        $user = User::with('book')->findOrFail($userid);
         $books = Book::all();
         //   $user=User::find($userid);
           return view('edit',compact('user','books'));
@@ -95,6 +100,7 @@ class RegisterController extends Controller
     public function update($userid)
     {
         $user=User::find($userid);
+        $oldStatus = $user->status;
         $user->update([
             'name'          => request('name'),
             'email'         => request('email'),
@@ -108,7 +114,11 @@ class RegisterController extends Controller
             'issue_date'    => request('idate'),
             'due_date'      => request('ddate'),
         ]);
-        return redirect()->route('details');
+        if ($oldStatus != $user->status) {
+            Mail::to($user->email)->send(new StatusMail($user, $user->status));
+        }
+        return redirect()->route('details')
+            ->with('success', 'Status updated & email sent!');
     }
 
     // public function drop($userid)

@@ -31,12 +31,18 @@ class User extends Authenticatable
         'join_date',
         'issue_date',
         'due_date',
+        'book_id',
+
     ];
     protected $guarded = [];
     // Each user belongs to a book (optional)
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id');
+    }
     public function book()
     {
-        return $this->belongsTo(Book::class, 'book_id', 'book_id'); // user.book_id → book.book_id
+        return $this->belongsTo('App\Models\Book', 'book_id'); // user.book_id → book.book_id
     }
 
 

@@ -53,7 +53,13 @@
 
 <body>
 
-    <a href="{{route('bookcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br>
+    <!-- <a href="{{route('bookcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br> -->
+    @if(Auth::user()->role == 1)
+    <a href="{{ route('bookcreate') }}" style="text-align:right;margin-left: 210px;text-decoration: none;">
+        Book Details
+    </a><br>
+    @endif
+
     <a href="{{route('catcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">category Details</a>
     <h2>User Details</h2>
     <table>
@@ -77,10 +83,8 @@
             <td>{{$use->email }}</td>
             <td>{{$use->membership_no }}</td>
             <td>{{$use->address}}</td>
-            <td>
-                <img src="{{asset($use->image)}}" alt="User Image" width="100">
-            </td>
-            <td>{{$use->book ? $use->book->title : 'No book' }}</td>
+            <td><img src="{{ asset('asset/uploads/'.$use->image) }}" alt="User Image" width="100"></td>
+            <td>{{ $use->book->title ??'No book' }}</td>
             <td>{{$use->status? 'Assigned' : 'Not Assigned'}}</td>
             <td>{{$use->join_date}}</td>
             <td>{{$use->issue_date}}</td>
