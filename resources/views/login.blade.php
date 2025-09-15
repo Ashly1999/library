@@ -13,11 +13,15 @@
     <style>
         body {
             background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .login-card {
+            width: 100%;
             max-width: 400px;
-            margin: 80px auto;
             padding: 30px;
             background: #fff;
             border-radius: 10px;
@@ -25,9 +29,21 @@
         }
 
         .login-card h2 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
             font-weight: bold;
+        }
+
+        .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -41,15 +57,17 @@
 
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your email">
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter your password">
+                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Login</button>
+
+            <a href="{{ route('register') }}" class="register-link">Register Here!...</a>
         </form>
     </div>
 

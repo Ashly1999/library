@@ -29,3 +29,6 @@ Route::get('/bookedit/{id}',[BookController::class, 'edit'])->name('bookedit');
 Route::post('/updatestore/{id}', [BookController::class, 'update'])->name('update');
 Route::get('/delete/{id}', [BookController::class, 'delete'])->name('delete');
 
+
+Route::get('/layout', [RegisterController::class, 'indexes'])->name('layout');
+

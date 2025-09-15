@@ -14,6 +14,11 @@ use function Ramsey\Uuid\v1;
 class RegisterController extends Controller
 {
     //
+
+    public function indexes()
+    {
+        return view('layout');
+    }
     public function index()
     {
         $books = Book::all();
@@ -41,10 +46,11 @@ class RegisterController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->move(public_path('asset/uploads'), $filename);
-            $data['image'] = $filename; // corrected
+            $data['image'] = $filename;
         }
 
-      
+
+
         $users = User::with('book')->get();
         $user = User::create($data);
 
@@ -70,7 +76,6 @@ class RegisterController extends Controller
             return redirect()->route('details'); 
         }
 
-      
         return back()->withErrors([
             'email' => 'Invalid email or password.',
         ])->onlyInput('email');
@@ -100,7 +105,7 @@ class RegisterController extends Controller
     public function update($userid)
     {
         $user=User::find($userid);
-        $oldStatus = $user->status;
+      
         $user->update([
             'name'          => request('name'),
             'email'         => request('email'),
@@ -114,7 +119,7 @@ class RegisterController extends Controller
             'issue_date'    => request('idate'),
             'due_date'      => request('ddate'),
         ]);
-        if ($oldStatus != $user->status) {
+        if ( $user->status==1) {
             Mail::to($user->email)->send(new StatusMail($user, $user->status));
         }
         return redirect()->route('details')
