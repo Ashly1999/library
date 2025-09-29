@@ -10,13 +10,10 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // Run due date reminder every day at 9 AM
-        $schedule->command('mail:send-due-date-reminder')->everyMinute();
-
-        // For testing every minute
-        // $schedule->command('mail:duedate-reminder')->everyMinute();
+      
+        $schedule->command('app:due-date-reminder')->dailyAt('12:20');
     }
 
     /**
@@ -28,4 +25,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+    
 }

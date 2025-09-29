@@ -11,7 +11,10 @@ class BookController extends Controller
 {
     public function create()
     {
-        $categories=Category::all();
+       
+            $categories = Category::all();
+      
+       
         return view('book.create',compact('categories'));
     }
 
@@ -29,8 +32,9 @@ class BookController extends Controller
             'price'            => $request->input('price'),
             'status'           => $request->input('status'),
         ]);
-
+       
         $books = Book::with('category')->get();
+        
         return view('book.details', compact('books'));
     }
 
@@ -40,17 +44,26 @@ class BookController extends Controller
         return view('book.details', compact('books'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $books = Book::with('category')
+            ->when($search,function ($query, $search) 
+        {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+         })->get();
+
+        return view('book.details', compact('books','search'));
+    }
+    
     public function edit($id)
     {
-      
             $book = Book::with('category')->findOrFail($id); 
             $categories = Category::all();
             return view('book.edit', compact('book', 'categories'));
-        
-           
-      }
+    }
     
-
     // Update book
     public function update(Request $request, $id)
     {
@@ -81,4 +94,16 @@ class BookController extends Controller
         return redirect()->route('view')
             ->with('success', 'Book deleted successfully!');
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // remove user session
+
+        // invalidate and regenerate token for security
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('success', 'Logged out successfully!');
+    }
+    
 }

@@ -7,23 +7,18 @@
 </head>
 
 <body>
+
+
     <div class="container mt-5">
-       
-        <td>
-            @if(Auth::user()->role == 1)
-            <a href="{{ route('catcreate')}}"
-                style="background-color: rgba(255, 0, 221, 1); 
-                   color: white; 
-                   padding: 10px 20px; 
-                   border-radius: 5px; 
-                   text-decoration: none;">
-                New
-            </a>
-            @endif
-        </td>
+
+        <div style="text-align: right; margin: 10px 0;">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+        </div>
 
 
-    
         <td><a href="{{route('details')}}" style="background-color: rgba(109, 58, 186, 1); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
                 Back
             </a>

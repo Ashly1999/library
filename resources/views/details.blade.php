@@ -53,12 +53,25 @@
 
 <body>
 
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+
     <!-- <a href="{{route('bookcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">Book Details</a><br> -->
     @if(Auth::user()->role == 1)
     <a href="{{ route('bookcreate') }}" style="text-align:right;margin-left: 210px;text-decoration: none;">
         Book Details
-    </a><br>
+    </a>
+    @else
+    <a href="{{ route('view') }}" style="text-align:right;margin-left: 210px;text-decoration: none;">
+        Book Details
+    </a>
+    <br>
     @endif
+
+
+
 
     <a href="{{route('catcreate')}}" style="text-align:right;margin-left: 210px;text-decoration: none;">category Details</a>
     <h2>User Details</h2>

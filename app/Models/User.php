@@ -32,7 +32,6 @@ class User extends Authenticatable
         'issue_date',
         'due_date',
         'book_id',
-
     ];
     protected $guarded = [];
     // Each user belongs to a book (optional)

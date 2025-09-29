@@ -83,17 +83,17 @@
                             <div class="mb-3">
                                 <label for="jdate" class="form-label">Join Date:</label>
                                 <input type="date" class="form-control" id="jdate" name="jdate"
-                                    value="{{ \Carbon\Carbon::parse($user->jdate)->format('Y-m-d') }}">
+                                    value="{{ \Carbon\Carbon::parse($user->join_date)->format('Y-m-d') }}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="password" class="form-label">Issue Date:</label>
                                 <input type="date" class="form-control" id="idate" name="idate"
-                                    value="{{ \Carbon\Carbon::parse($user->idate)->format('Y-m-d') }}">
+                                    value="{{ \Carbon\Carbon::parse($user->issue_date)->format('Y-m-d') }}">
                             </div>
                             <div class=" mb-3">
                                 <label for="password" class="form-label">Due Date:</label>
-                                <input type="date" class="form-control" id="ddate" name="ddate" value="{{$user->ddate}}"
+                                <input type="date" class="form-control" id="ddate" name="ddate" value="{{$user->due_date}}"
                                     value="{{ \Carbon\Carbon::parse($user->ddate)->format('Y-m-d') }}">
                             </div>
                             <!-- Register Button -->

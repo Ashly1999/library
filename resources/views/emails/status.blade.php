@@ -6,9 +6,9 @@
 </head>
 
 <body>
-    <h2>Hello {{ $user->name  }},</h2>
-    <p>Your book status has been updated to: <strong>{{ $user->status }}</strong></p>
-    <p>Thank you, <br>Laravel App</p>
+    <h2>Hello {{ $user->name}},</h2>
+    <p>The book has been assigned: <strong>{{ $user->title }}</strong></p>
+    <p>Thank you, <br>Admin</p>
 </body>
 
 </html>

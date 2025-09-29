@@ -18,4 +18,5 @@ class Book extends Model
     {
         return $this->hasMany(User::class, 'book_id', 'book_id'); // book.book_id → user.book_id
     }
+    
 }

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('available_copies');
             $table->string('price');
             $table->string('status')->default(1)->comment('1:Available,0:Non_avaialable');
+            $table->string('qr_code_path')->nullable();
             $table->timestamps();
         });
        
@@ -34,6 +35,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn('qr_code_path'); // rollback
+        });
     }
 };
