@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\GrnController;
 use App\Http\Controllers\ItemController;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -51,3 +52,19 @@ Route::post('/item/create',[ItemController::class, 'store'])->name('item.store')
 
 
 Route::post('/logout', [RegisterController::class, 'logout'])->name('logout');
+
+Route::get('/forpassword', [RegisterController::class,'forGot'])->name('forgot_password');
+
+
+Route::get('/dashboard', function () {
+    $user = Auth::user();
+
+    if ($user->role == 'admin') {
+        return redirect()->route('admin.dashboard');
+    } else {
+        return redirect()->route('user.dashboard');
+    }
+});
+
+Route::get('/admin', [RegisterController::class, 'admin'])->name('admin.dashboard');
+Route::get('/user', [RegisterController::class, 'user'])->name('user.dashboard');

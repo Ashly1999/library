@@ -68,6 +68,7 @@
             <button type="submit" class="btn btn-primary w-100">Login</button>
 
             <a href="{{ route('register') }}" class="register-link">Register Here!...</a>
+            <a href="{{route('forgot_password')}}" class="register-link">Forgot Password...</a>
         </form>
     </div>
 

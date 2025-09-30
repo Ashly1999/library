@@ -10,7 +10,7 @@ use App\Mail\StatusMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
+use Carbon\Carbon; 
 
 use function Ramsey\Uuid\v1;
 
@@ -25,7 +25,7 @@ class RegisterController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('register',compact('books'));
+        return view('register', compact('books'));
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class RegisterController extends Controller
         $users = User::with('book')->get();
         $user = User::create($data);
 
-       
+
         return redirect()->route('login');
     }
 
@@ -68,15 +68,15 @@ class RegisterController extends Controller
 
     public function loginstore(Request $request)
     {
-       
+
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate(); 
-            return redirect()->route('details'); 
+            $request->session()->regenerate();
+            return redirect()->route('details');
         }
 
         return back()->withErrors([
@@ -102,7 +102,7 @@ class RegisterController extends Controller
         $user = User::with('book')->findOrFail($userid);
         $books = Book::all();
         //   $user=User::find($userid);
-          return view('edit',compact('user','books'));
+        return view('edit', compact('user', 'books'));
     }
 
     public function update($userid, Request $request)
@@ -168,52 +168,50 @@ class RegisterController extends Controller
 
     public function drop($userid)
     {
-       $user=User::find($userid);
-       $user->delete();
-       return redirect()->route('details');
+        $user = User::find($userid);
+        $user->delete();
+        return redirect()->route('details');
     }
 
     public function catcreate()
     {
-        if (Auth::user()->role == 1) 
-        {
-             return view('category.create');
+        if (Auth::user()->role == 1) {
+            return view('category.create');
         } else {
             $cat = Category::all();
             return view('category.view', compact('cat'));
         }
     }
-    
+
 
 
     public function catstore()
     {
-         $category=Category::create([
+        $category = Category::create([
 
-            'name'=>request('cname'),
+            'name' => request('cname'),
             'description' => request('des'),
             'status' => request('status'),
-         ]);
+        ]);
 
         return redirect()->route('catview');
     }
 
     public function catview()
     {
-        $cat=Category::all();
-        return view('category.view',compact('cat'));
+        $cat = Category::all();
+        return view('category.view', compact('cat'));
     }
 
     public function catedit($id)
     {
-        $cat = Category::find($id); 
-         return view('category.edit',compact('cat'));
-        
+        $cat = Category::find($id);
+        return view('category.edit', compact('cat'));
     }
 
-    public function catupdate(Request $request,$id)
+    public function catupdate(Request $request, $id)
     {
-        $cat=Category::find($id);
+        $cat = Category::find($id);
         $cat->update([
             'name' => $request->cname,
             'description' => $request->des,
@@ -224,13 +222,11 @@ class RegisterController extends Controller
 
     public function catdelete($id)
     {
-      $cat=Category::find($id);
+        $cat = Category::find($id);
         $cat->delete();
         return redirect()->route('catview');
     }
-
-   
-
+    
     public function logout(Request $request)
     {
         Auth::logout(); // remove user session
@@ -241,8 +237,30 @@ class RegisterController extends Controller
 
         return redirect('/login')->with('success', 'Logged out successfully!');
     }
+
+
+    public function forGot()
+    {
+        return view('forgot_password');
+    }
+
+    // AdminController.php
+    public function admin()
+    {
+        $user = auth()->user();
+        if ($user->role != '1') {
+            return redirect('/dashboard'); 
+        }
+        return view('admin.dashboard');
+    }
+
+    // UserController.php
+    public function user()
+    {
+        $user = auth()->user();
+        if ($user->role != '0') {
+            return redirect('/dashboard'); 
+        }
+        return view('user.dashboard');
+    }
 }
-
-
-
- 
