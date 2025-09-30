@@ -44,8 +44,8 @@ class RegisterController extends Controller
             'issue_date'    => request('idate'),
             'due_date'      => request('ddate'),
         ];
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->move(public_path('asset/uploads'), $filename);
@@ -105,58 +105,73 @@ class RegisterController extends Controller
           return view('edit',compact('user','books'));
     }
 
-    public function update($userid)
+    public function update($userid, Request $request)
     {
-        $user=User::find($userid);
+        $user = User::findOrFail($userid);
 
         $oldStatus = $user->status;
 
-        $tomorrow = Carbon::tomorrow()->format('Y-m-d');
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('asset/uploads'), $filename);
 
-        // Get users whose due_date is tomorrow
-        $users = User::whereDate('due_date', $tomorrow)->get();
-        
-        // $beforeDate = date('d-m-Y', strtotime($duedate . ' -1 day'));
-        $user->update([
-            'name'          => request('name'),
-            'email'         => request('email'),
-            'password' => bcrypt(request('password')),
-            'role'          => request('role'),
-            'membership_no' => request('membership_no'),
-            'address'       => request('address'),
-            'book_id'       => request('book_id'),
-            'status'        => request('status'),
-            'join_date'     => request('jdate'),
-            'issue_date'    => request('idate'),
-            'due_date'      => request('ddate'),
-        ]);
-       
+            // delete old image if exists
+            if ($user->image && file_exists(public_path('asset/uploads/' . $user->image))) {
+                unlink(public_path('asset/uploads/' . $user->image));
+            }
 
+            $user->image = $filename;
+        }
+
+        // Update fields
+        $user->name          = $request->name;
+        $user->email         = $request->email;
+        $user->role          = $request->role;
+        $user->membership_no = $request->membership_no;
+        $user->address       = $request->address;
+        $user->book_id       = $request->book_id;
+        $user->status        = $request->status;
+        $user->join_date     = $request->jdate;
+        $user->issue_date    = $request->idate;
+        $user->due_date      = $request->ddate;
+
+        // Only update password if entered
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        // Send mail if status changed to 1
         if ($oldStatus != 1 && $user->status == 1) {
-           
             Mail::to($user->email)->send(new StatusMail($user, $user->status));
         }
+
+        // Send mail one day before due date
         if ($user->due_date) {
             $dueDate = Carbon::parse($user->due_date);
-            $beforeDate = Carbon::tomorrow();
             $dayBeforeDue = $dueDate->copy()->subDay();
-            if ($dueDate->isSameDay($beforeDate)) {
+
+            if (Carbon::today()->isSameDay($dayBeforeDue)) {
                 Mail::to($user->email)->send(new DueDateMail($user, $user->due_date));
             }
         }
 
         return redirect()->route('details')
-            ->with('success', 'Status updated & emails sent if applicable!');
+            ->with('success', 'User updated & emails sent if applicable!');
     }
 
-    
-    
-    // public function drop($userid)
-    // {
-    //    $user=User::find($userid);
-    //    $user->delete();
-    //    return redirect()->route('details');
-    // }
+
+
+
+    public function drop($userid)
+    {
+       $user=User::find($userid);
+       $user->delete();
+       return redirect()->route('details');
+    }
 
     public function catcreate()
     {

@@ -103,7 +103,7 @@
             <td>{{$use->issue_date}}</td>
             <td>{{$use->due_date}}</td>
             <td><a href="{{route('edit',$use->user_id)}}">Edit</a></td>
-            <td><a href="{{route('delete',$use->user_id)}}">Delete</a></td>
+            <td><a href="{{route('drop',$use->user_id)}}">Delete</a></td>
         </tr>
         @endforeach
     </table>

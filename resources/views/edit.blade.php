@@ -59,6 +59,12 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Profile:</label>
                                 <input type="file" class="form-control" id="image" name="image">
+
+                                @if($user->image)
+                                <div class="mt-2">
+                                    <img src="{{ asset('asset/uploads/' . $user->image) }}" width="100" alt="Profile Image">
+                                </div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label for="book_id" class="form-label fw-semibold">Book Name</label>

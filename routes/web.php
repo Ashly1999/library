@@ -16,7 +16,7 @@ Route::post('/login.store', [RegisterController::class, 'loginstore'])->name('lo
 Route::get('/userdetails', [RegisterController::class, 'view'])->name('details');
 Route::get('/useredit/{id}', [RegisterController::class, 'edit'])->name('edit');
 Route::post('/userupdate/{id}', [RegisterController::class, 'update'])->name('updatestore');
-Route::get('/userdelete/{id}', [RegisterController::class, 'drop'])->name('delete');
+Route::get('/userdelete/{id}', [RegisterController::class, 'drop'])->name('drop');
 
 Route::get('/category', [RegisterController::class, 'catcreate'])->name('catcreate');
 Route::post('/category.store', [RegisterController::class, 'catstore'])->name('catstore');

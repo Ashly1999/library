@@ -12,18 +12,18 @@ class StatusMail extends Mailable
 
     public $user;
     public $status;
-    public $title;
+  
   
 
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $status, $title)
+    public function __construct($user, $status)
     {
         $this->user = $user;
         $this->status = $status;
-        $this->title = $title;
+    
        
     }
 
@@ -37,7 +37,7 @@ class StatusMail extends Mailable
             ->with([
                 'user' => $this->user,
                 'status' => $this->status,
-                 'title'=>$this->title,
+               
                 
             ]);
     }
